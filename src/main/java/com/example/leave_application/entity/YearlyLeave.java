@@ -28,11 +28,13 @@ public class YearlyLeave {
 
     private Integer yearlyLeaveId;
 
+    @Column(nullable = false)
     private Integer year;
 
+    @Column(nullable = false)
     private Integer maximumDay;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(
             name = "leaveType_Id",
             referencedColumnName = "leaveTypeId"

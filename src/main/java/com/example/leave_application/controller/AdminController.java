@@ -1,8 +1,10 @@
 package com.example.leave_application.controller;
 
 import com.example.leave_application.payload.ApiResponse;
+import com.example.leave_application.payload.ApplicationUserDTO;
 import com.example.leave_application.payload.LeaveTypeDTO;
 import com.example.leave_application.payload.YearlyLeaveDTO;
+import com.example.leave_application.service.ApplicationUserService;
 import com.example.leave_application.service.LeaveTypeService;
 import com.example.leave_application.service.YearlyLeaveService;
 import lombok.AllArgsConstructor;
@@ -20,8 +22,9 @@ public class AdminController {
 
     private final LeaveTypeService leaveTypeService;
     private final YearlyLeaveService yearlyLeaveService;
+    private final ApplicationUserService applicationUserService;
 
-    //Leave Type CRUD//
+    //Leave Type Controller//
 
     @PostMapping("/addLeaveType")
     public ResponseEntity<LeaveTypeDTO> createLeaveType (@Valid @RequestBody LeaveTypeDTO leaveTypeDTO){
@@ -48,7 +51,7 @@ public class AdminController {
         return ResponseEntity.ok(this.leaveTypeService.getAllType());
     }
 
-    //Yearly Leave//
+    //Yearly Leave Controller//
 
     @PostMapping("/leaveType/{leaveTypeId}/yearlyLeave")
     public ResponseEntity<YearlyLeaveDTO> allocateYearlyLeave (@RequestBody YearlyLeaveDTO yearlyLeaveDTO, @PathVariable Integer leaveTypeId){
@@ -67,5 +70,27 @@ public class AdminController {
         return new ResponseEntity(new ApiResponse("Allocated Yearly Leave deleted successfully",true),HttpStatus.OK);
 
     }
+
+    // Application User Controller//
+
+    @PostMapping ("/addUser")
+    public ResponseEntity<ApplicationUserDTO> createUser (@RequestBody ApplicationUserDTO applicationUserDTO){
+        ApplicationUserDTO createUserDto = this.applicationUserService.createUser(applicationUserDTO);
+        return new ResponseEntity<>(createUserDto, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping ("application/delete/{userId}")
+    public ResponseEntity<ApiResponse> deleteUser(@PathVariable("userId") Integer userId){
+        this.applicationUserService.deleteUser(userId);
+        return new ResponseEntity(new ApiResponse("User deleted successfully",true),HttpStatus.OK);
+
+    }
+
+    @GetMapping("applicationUser/allUser")
+    public ResponseEntity<Set<ApplicationUserDTO>> getAllUser(){
+        return ResponseEntity.ok(this.applicationUserService.getALLUsers());
+    }
+
+
 
 }

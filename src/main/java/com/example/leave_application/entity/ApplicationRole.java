@@ -8,29 +8,29 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name="leaveType")
+@Table(name="applicationRole")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class LeaveType {
+public class ApplicationRole {
 
     @Id
     @SequenceGenerator(
-            name = "leaveType_sequence",
-            sequenceName = "leaveType_sequence",
+            name = "role_sequence",
+            sequenceName = "role_sequence",
             allocationSize = 1
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "leaveType_sequence"
+            generator = "role_sequence"
     )
 
-    private Integer leaveTypeId;
+    private Integer roleId;
 
     @Column(nullable = false)
-    private String leaveTypeName;
+    private String label;
 
     @Column(nullable = false)
-    private String leaveTypeRemark;
+    private String roleName;
 }

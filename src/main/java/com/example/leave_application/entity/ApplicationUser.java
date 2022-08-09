@@ -7,6 +7,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name="applicationUser")
@@ -46,5 +48,13 @@ public class ApplicationUser {
     @JoinColumn(name = "managerId"
     )
     private ApplicationUser manager;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "applicationUserRoles",
+            joinColumns = @JoinColumn(name = "user", referencedColumnName = "userId"),
+            inverseJoinColumns = @JoinColumn(name = "role", referencedColumnName = "roleId")
+    )
+    private Set<ApplicationRole> roles = new HashSet<>();
 
 }

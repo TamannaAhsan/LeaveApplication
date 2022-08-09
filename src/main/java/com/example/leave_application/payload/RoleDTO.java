@@ -4,18 +4,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
 @NoArgsConstructor
 @Getter
 @Setter
-public class YearlyLeaveDTO {
+public class RoleDTO {
 
-    private Integer yearlyLeaveId;
+    private Integer roleId;
 
-    private Integer year;
+    private String label;
 
-    private Integer maximumDay;
-
-    private LeaveTypeDTO leaveType;
-
+    private String roleName;
 }
