@@ -29,7 +29,7 @@ public class ApplicationUser {
             generator = "user_sequence"
     )
 
-    private Integer userId;
+    private Integer id;
 
     @Column(name="user_email", nullable = false, length = 150)
     private String email;
@@ -37,14 +37,14 @@ public class ApplicationUser {
     @Column(nullable = false)
     private String password;
 
-    //private String accessToken;
-    //private Date tokenExpireDate;
+    private String accessToken;
+    private Date tokenExpireDate;
 
     @Column(nullable = false, length = 100)
     private String username;
 
     //Self Referencing//
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "managerId"
     )
     private ApplicationUser manager;
@@ -52,7 +52,7 @@ public class ApplicationUser {
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "applicationUserRoles",
-            joinColumns = @JoinColumn(name = "user", referencedColumnName = "userId"),
+            joinColumns = @JoinColumn(name = "user", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role", referencedColumnName = "roleId")
     )
     private Set<ApplicationRole> roles = new HashSet<>();

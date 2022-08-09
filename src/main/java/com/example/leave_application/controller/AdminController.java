@@ -91,6 +91,12 @@ public class AdminController {
         return ResponseEntity.ok(this.applicationUserService.getALLUsers());
     }
 
+    @PostMapping("/user/{managerId}/managerUser")
+    public ResponseEntity<ApplicationUserDTO> createManagerUser (@RequestBody ApplicationUserDTO applicationUserDTO, @PathVariable Integer managerId){
+        ApplicationUserDTO applicationUserDTO1 = this.applicationUserService.createManagerUser(applicationUserDTO,managerId);
+        return new ResponseEntity(applicationUserDTO1,HttpStatus.CREATED);
+    }
+
 
 
 }

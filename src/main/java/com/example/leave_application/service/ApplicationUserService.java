@@ -9,8 +9,10 @@ import java.util.Set;
 public interface ApplicationUserService {
 
     ApplicationUserDTO createUser(ApplicationUserDTO userDTO);
+    ApplicationUserDTO createManagerUser(ApplicationUserDTO userDTO, Integer managerId);
     void deleteUser(Integer userId);
     Set<ApplicationUserDTO> getALLUsers();
     ApplicationUserDTO updatePassword(ApplicationUserDTO userDTO, Integer userId);
+
 
 }

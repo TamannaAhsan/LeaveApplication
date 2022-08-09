@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 public class ApplicationUserDTO {
 
-    private Integer userId;
+    private Integer id;
 
     private String email;
 
@@ -22,5 +22,5 @@ public class ApplicationUserDTO {
 
     private String username;
 
-    //private ApplicationUserDTO manager;
+    private ApplicationUserDTO manager;
 }

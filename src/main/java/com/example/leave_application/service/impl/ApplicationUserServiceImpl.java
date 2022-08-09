@@ -27,6 +27,19 @@ public class ApplicationUserServiceImpl implements ApplicationUserService {
         ApplicationUser savedUser = this.applicationUserRepository.save(applicationUser);
         return this.ApplicationUserToDto(savedUser);
     }
+    @Override
+    public ApplicationUserDTO createManagerUser(ApplicationUserDTO userDTO, Integer managerId) {
+
+        ApplicationUser applicationManagerUser = this.applicationUserRepository.findById(managerId).orElseThrow(()-> new ResourceNotFoundException("Manager", "Id",managerId));
+
+        ApplicationUser applicationUser = this.dtoToApplicationUser(userDTO);
+        applicationUser.setEmail(userDTO.getEmail());
+        applicationUser.setPassword(userDTO.getPassword());
+        applicationUser.setUsername(userDTO.getUsername());
+        applicationUser.setManager(applicationManagerUser);
+        ApplicationUser savedUser = this.applicationUserRepository.save(applicationUser);
+        return this.ApplicationUserToDto(savedUser);
+    }
 
     @Override
     public void deleteUser(Integer userId) {
@@ -50,6 +63,8 @@ public class ApplicationUserServiceImpl implements ApplicationUserService {
         ApplicationUser updatedPassword = this.applicationUserRepository.save(applicationUser);
         return this.ApplicationUserToDto(updatedPassword);
     }
+
+
 
     private ApplicationUser dtoToApplicationUser (ApplicationUserDTO applicationUserDTO){
         ApplicationUser applicationUser = this.modelMapper.map(applicationUserDTO,ApplicationUser.class);
