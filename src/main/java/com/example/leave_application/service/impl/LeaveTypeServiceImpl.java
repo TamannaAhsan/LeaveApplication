@@ -42,13 +42,15 @@ public class LeaveTypeServiceImpl implements LeaveTypeService {
     @Override
     public Set<LeaveTypeDTO> getAllType() {
         List<LeaveType> leaveTypes = this.leaveTypeRepository.findAll();
-        Set<LeaveTypeDTO> leaveTypeDTOS = leaveTypes.stream().map(leaveType -> this.leaveTypeToDto(leaveType)).collect(Collectors.toSet());
+        Set<LeaveTypeDTO> leaveTypeDTOS = leaveTypes.stream().map(leaveType -> this.leaveTypeToDto(leaveType))
+                .collect(Collectors.toSet());
         return leaveTypeDTOS;
     }
 
     @Override
     public void deleteLeaveType(Integer leaveTypeId) {
-        LeaveType leaveType = this.leaveTypeRepository.findById(leaveTypeId).orElseThrow(()-> new ResourceNotFoundException("LeaveType", "Id", leaveTypeId));
+        LeaveType leaveType = this.leaveTypeRepository.findById(leaveTypeId)
+                .orElseThrow(()-> new ResourceNotFoundException("LeaveType", "Id", leaveTypeId));
         this.leaveTypeRepository.delete(leaveType);
     }
 

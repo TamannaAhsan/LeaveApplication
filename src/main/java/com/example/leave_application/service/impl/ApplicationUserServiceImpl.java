@@ -30,7 +30,8 @@ public class ApplicationUserServiceImpl implements ApplicationUserService {
     @Override
     public ApplicationUserDTO createManagerUser(ApplicationUserDTO userDTO, Integer managerId) {
 
-        ApplicationUser applicationManagerUser = this.applicationUserRepository.findById(managerId).orElseThrow(()-> new ResourceNotFoundException("Manager", "Id",managerId));
+        ApplicationUser applicationManagerUser = this.applicationUserRepository.findById(managerId)
+                .orElseThrow(()-> new ResourceNotFoundException("Manager", "Id",managerId));
 
         ApplicationUser applicationUser = this.dtoToApplicationUser(userDTO);
         applicationUser.setEmail(userDTO.getEmail());
@@ -43,7 +44,8 @@ public class ApplicationUserServiceImpl implements ApplicationUserService {
 
     @Override
     public void deleteUser(Integer userId) {
-        ApplicationUser applicationUser = this.applicationUserRepository.findById(userId).orElseThrow(()-> new ResourceNotFoundException("User", "Id", userId));
+        ApplicationUser applicationUser = this.applicationUserRepository.findById(userId)
+                .orElseThrow(()-> new ResourceNotFoundException("User", "Id", userId));
         this.applicationUserRepository.delete(applicationUser);
 
     }
@@ -51,7 +53,8 @@ public class ApplicationUserServiceImpl implements ApplicationUserService {
     @Override
     public Set<ApplicationUserDTO> getALLUsers() {
         List<ApplicationUser> applicationUsers = this.applicationUserRepository.findAll();
-        Set<ApplicationUserDTO> applicationUserDTOS = applicationUsers.stream().map(applicationUser -> this.ApplicationUserToDto(applicationUser)).collect(Collectors.toSet());
+        Set<ApplicationUserDTO> applicationUserDTOS = applicationUsers.stream().map(applicationUser -> this.ApplicationUserToDto(applicationUser))
+                .collect(Collectors.toSet());
         return applicationUserDTOS;
     }
 
@@ -59,12 +62,11 @@ public class ApplicationUserServiceImpl implements ApplicationUserService {
     public ApplicationUserDTO updatePassword(ApplicationUserDTO userDTO, Integer userId) {
         ApplicationUser applicationUser = this.applicationUserRepository.findById(userId)
                 .orElseThrow(()-> new ResourceNotFoundException("User", "Id", userId));
+
         applicationUser.setPassword(userDTO.getPassword());
         ApplicationUser updatedPassword = this.applicationUserRepository.save(applicationUser);
         return this.ApplicationUserToDto(updatedPassword);
     }
-
-
 
     private ApplicationUser dtoToApplicationUser (ApplicationUserDTO applicationUserDTO){
         ApplicationUser applicationUser = this.modelMapper.map(applicationUserDTO,ApplicationUser.class);

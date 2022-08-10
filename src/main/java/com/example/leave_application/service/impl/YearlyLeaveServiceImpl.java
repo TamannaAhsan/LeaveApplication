@@ -28,7 +28,9 @@ public class YearlyLeaveServiceImpl implements YearlyLeaveService {
 
     @Override
     public YearlyLeaveDTO createYearlyLeave(YearlyLeaveDTO yearlyLeaveDTO, Integer leaveTypeId) {
-        LeaveType leaveType = this.leaveTypeRepository.findById(leaveTypeId).orElseThrow(()-> new ResourceNotFoundException("Leave Type", "Id",leaveTypeId));
+        LeaveType leaveType = this.leaveTypeRepository.findById(leaveTypeId)
+                .orElseThrow(()-> new ResourceNotFoundException("Leave Type", "Id",leaveTypeId));
+        
         YearlyLeave yearlyLeave = this.modelMapper.map(yearlyLeaveDTO,YearlyLeave.class);
         yearlyLeave.setYear(yearlyLeaveDTO.getYear());
         yearlyLeave.setMaximumDay(yearlyLeaveDTO.getMaximumDay());
@@ -40,14 +42,16 @@ public class YearlyLeaveServiceImpl implements YearlyLeaveService {
 
     @Override
     public void deleteYearlyLeave(Integer yearlyLeaveId) {
-        YearlyLeave yearlyLeave = this.yearLyLeaveRepository.findById(yearlyLeaveId).orElseThrow(()-> new ResourceNotFoundException("Yearly Leave", "Id", yearlyLeaveId));
+        YearlyLeave yearlyLeave = this.yearLyLeaveRepository.findById(yearlyLeaveId)
+                .orElseThrow(()-> new ResourceNotFoundException("Yearly Leave", "Id", yearlyLeaveId));
         this.yearLyLeaveRepository.delete(yearlyLeave);
     }
 
     @Override
     public Set<YearlyLeaveDTO> getAllYearlyLeave() {
         List<YearlyLeave> yearlyLeaves = this.yearLyLeaveRepository.findAll();
-        Set<YearlyLeaveDTO> yearlyLeaveDTOS = yearlyLeaves.stream().map((post) -> this.yearlyLeaveToDto(post)).collect(Collectors.toSet());
+        Set<YearlyLeaveDTO> yearlyLeaveDTOS = yearlyLeaves.stream().map((post) -> this.yearlyLeaveToDto(post))
+                .collect(Collectors.toSet());
         return yearlyLeaveDTOS;
     }
 

@@ -32,7 +32,7 @@ public class LeaveApplication {
     @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
     private Date toDate;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(
             name = "leaveType_id",
             referencedColumnName = "leaveTypeId"
@@ -46,7 +46,7 @@ public class LeaveApplication {
 
     private String managerRemark;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(
             name = "user_id",
             referencedColumnName = "id"
