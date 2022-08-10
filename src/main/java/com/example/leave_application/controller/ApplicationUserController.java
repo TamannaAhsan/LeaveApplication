@@ -55,17 +55,11 @@ public class ApplicationUserController {
     public ResponseEntity<LeaveApplicationDTO> updateLeaveApplication(@RequestBody LeaveApplicationDTO leaveApplicationDTO, @PathVariable("leaveApplicationId") Integer leaveApplicationId){
         LeaveApplicationDTO updatedLeaveApplication = this.leaveApplicationService.updateLeaveApplication(leaveApplicationDTO,leaveApplicationId);
         return ResponseEntity.ok(updatedLeaveApplication);
-
     }
 
     @PostMapping("application/send/{leaveApplicationId}")
     public ResponseEntity<LeaveApplicationDTO> sendLeaveApplication(@RequestBody LeaveApplicationDTO leaveApplicationDTO, @PathVariable("leaveApplicationId") Integer leaveApplicationId){
         LeaveApplicationDTO sendLeaveApplication = this.leaveApplicationService.sendLeaveApplication(leaveApplicationDTO,leaveApplicationId);
         return ResponseEntity.ok(sendLeaveApplication);
-
     }
-
-
-
-
 }

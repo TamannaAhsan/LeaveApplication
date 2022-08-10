@@ -1,7 +1,5 @@
 package com.example.leave_application.payload;
 
-import com.example.leave_application.entity.ApplicationUser;
-import com.example.leave_application.entity.LeaveType;
 import com.example.leave_application.entity.Status;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
