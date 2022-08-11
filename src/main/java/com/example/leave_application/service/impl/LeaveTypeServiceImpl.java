@@ -42,7 +42,8 @@ public class LeaveTypeServiceImpl implements LeaveTypeService {
     @Override
     public Set<LeaveTypeDTO> getAllType() {
         List<LeaveType> leaveTypes = this.leaveTypeRepository.findAll();
-        Set<LeaveTypeDTO> leaveTypeDTOS = leaveTypes.stream().map(leaveType -> this.leaveTypeToDto(leaveType))
+        Set<LeaveTypeDTO> leaveTypeDTOS = leaveTypes.stream()
+                .map(leaveType -> this.leaveTypeToDto(leaveType))
                 .collect(Collectors.toSet());
         return leaveTypeDTOS;
     }
