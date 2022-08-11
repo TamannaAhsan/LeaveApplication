@@ -3,6 +3,7 @@ package com.example.leave_application.controller;
 import com.example.leave_application.payload.ApiResponse;
 import com.example.leave_application.payload.ApplicationUserDTO;
 import com.example.leave_application.payload.LeaveApplicationDTO;
+import com.example.leave_application.payload.LeaveApplicationFilterDTO;
 import com.example.leave_application.service.ApplicationUserService;
 import com.example.leave_application.service.LeaveApplicationService;
 import lombok.AllArgsConstructor;
@@ -10,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 
 
@@ -61,5 +63,10 @@ public class ApplicationUserController {
     public ResponseEntity<LeaveApplicationDTO> sendLeaveApplication(@RequestBody LeaveApplicationDTO leaveApplicationDTO, @PathVariable("leaveApplicationId") Integer leaveApplicationId){
         LeaveApplicationDTO sendLeaveApplication = this.leaveApplicationService.sendLeaveApplication(leaveApplicationDTO,leaveApplicationId);
         return ResponseEntity.ok(sendLeaveApplication);
+    }
+    @PostMapping ("/showFilter/{userId}")
+    public ResponseEntity<List<LeaveApplicationDTO>> showAllLeaveByFilter(@RequestBody LeaveApplicationFilterDTO leaveApplicationFilterDTO, @PathVariable("userId") Integer userId){
+        List<LeaveApplicationDTO> showFilter = this.leaveApplicationService.showAllLeaveByFilter(leaveApplicationFilterDTO, userId);
+        return ResponseEntity.ok(showFilter);
     }
 }

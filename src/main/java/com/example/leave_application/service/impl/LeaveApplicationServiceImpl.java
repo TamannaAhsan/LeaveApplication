@@ -6,6 +6,7 @@ import com.example.leave_application.entity.LeaveType;
 import com.example.leave_application.entity.Status;
 import com.example.leave_application.exception.ResourceNotFoundException;
 import com.example.leave_application.payload.LeaveApplicationDTO;
+import com.example.leave_application.payload.LeaveApplicationFilterDTO;
 import com.example.leave_application.repository.ApplicationUserRepository;
 import com.example.leave_application.repository.LeaveApplicationRepository;
 import com.example.leave_application.repository.LeaveTypeRepository;
@@ -91,6 +92,34 @@ public class LeaveApplicationServiceImpl implements LeaveApplicationService {
         LeaveApplication sendLeaveApplication = this.leaveApplicationRepository.save(leaveApplication);
 
         return this.modelMapper.map(sendLeaveApplication, LeaveApplicationDTO.class);
+
+    }
+
+    @Override
+    public List<LeaveApplicationDTO> showAllLeaveByFilter(LeaveApplicationFilterDTO leaveApplicationFilterDTO, Integer userId) {
+
+        List<LeaveApplication> leaveApplications = this.leaveApplicationRepository.findLeaveApplicationByApplicationUserId(userId);
+
+        // By Status //
+        if(leaveApplicationFilterDTO.getStatus()!= null){
+           leaveApplications = leaveApplications.stream()
+                    .filter(applicationLeave -> applicationLeave.getStatus() == leaveApplicationFilterDTO.getStatus())
+                    .collect(Collectors.toList());
+        }
+
+        // By LeaveType //
+        if(leaveApplicationFilterDTO.getLeaveTypeId()!=null){
+            LeaveType leaveType = leaveTypeRepository.findById(leaveApplicationFilterDTO.getLeaveTypeId())
+                    .orElseThrow(()-> new ResourceNotFoundException("Leave Type", "Id", leaveApplicationFilterDTO.getLeaveTypeId()));
+            leaveApplications = leaveApplications.stream()
+                    .filter(applicationLeave -> applicationLeave.getLeaveType().equals(leaveType))
+                    .collect(Collectors.toList());
+        }
+
+        List<LeaveApplicationDTO> applicationDTOS = leaveApplications.stream()
+                .map(application -> this.leaveApplicationToDto(application))
+                .collect(Collectors.toList());
+        return applicationDTOS;
 
     }
 

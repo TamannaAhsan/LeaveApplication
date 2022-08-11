@@ -4,6 +4,7 @@ import com.example.leave_application.payload.LeaveApplicationDTO;
 import com.example.leave_application.service.LeaveApplicationService;
 import com.example.leave_application.service.ManagerService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +20,7 @@ public class ManagerController {
     @PostMapping("approved/{leaveApplicationId}")
     public ResponseEntity<LeaveApplicationDTO> approvedLeaveApplication(@RequestBody LeaveApplicationDTO leaveApplicationDTO, @PathVariable("leaveApplicationId") Integer leaveApplicationId){
         LeaveApplicationDTO approveLeaveApplication = this.managerService.approveLeaveApplication(leaveApplicationDTO,leaveApplicationId);
+        //return ResponseEntity.status(HttpStatus.OK).body(leaveApplicationDTO);
         return ResponseEntity.ok(approveLeaveApplication);
     }
 
