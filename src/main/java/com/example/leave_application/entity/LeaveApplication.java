@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
-@Table(name = "leave_application")
+@Table(name = "Leave_Application")
 @Getter
 @Setter
 @AllArgsConstructor

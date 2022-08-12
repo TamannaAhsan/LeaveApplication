@@ -8,7 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name="leaveType")
+@Table(name="Leave_Type")
 @Getter
 @Setter
 @AllArgsConstructor

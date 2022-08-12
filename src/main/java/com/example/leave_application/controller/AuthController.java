@@ -2,6 +2,7 @@ package com.example.leave_application.controller;
 
 import com.example.leave_application.auth.JwtTokenHelper;
 import com.example.leave_application.exception.ApiException;
+import com.example.leave_application.payload.ApplicationUserDTO;
 import com.example.leave_application.payload.JwtAuthRequest;
 import com.example.leave_application.payload.JwtAuthResponse;
 import com.example.leave_application.service.ApplicationUserService;
@@ -23,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 public class AuthController {
 
-    //private final ApplicationUserService applicationUserService;
+    private final ApplicationUserService applicationUserService;
     private final JwtTokenHelper jwtTokenHelper;
     private final UserDetailsService userDetailsService;
     private final AuthenticationManager authenticationManager;
@@ -51,4 +52,10 @@ public class AuthController {
         }
     }
 
+    //register new user api
+    @PostMapping("/register")
+    public ResponseEntity<ApplicationUserDTO> registerUser(@RequestBody ApplicationUserDTO userDto) {
+        ApplicationUserDTO registeredUser = this.applicationUserService.registerNewUser(userDto);
+        return new ResponseEntity(registeredUser, HttpStatus.CREATED);
+    }
 }

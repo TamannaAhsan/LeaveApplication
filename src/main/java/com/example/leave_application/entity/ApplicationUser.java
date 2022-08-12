@@ -18,7 +18,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Entity
-@Table(name="applicationUser")
+@Table(name="User")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -59,7 +59,7 @@ public class ApplicationUser implements UserDetails {
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
-            name = "applicationUserRoles",
+            name = "User_Role",
             joinColumns = @JoinColumn(name = "user", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role", referencedColumnName = "roleId")
     )

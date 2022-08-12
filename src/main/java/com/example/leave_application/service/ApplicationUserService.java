@@ -8,6 +8,7 @@ import java.util.Set;
 @Service
 public interface ApplicationUserService {
 
+    ApplicationUserDTO registerNewUser(ApplicationUserDTO userDTO);
     ApplicationUserDTO createUser(ApplicationUserDTO userDTO);
     ApplicationUserDTO createManagerUser(ApplicationUserDTO userDTO, Integer managerId);
     void deleteUser(Integer userId);
