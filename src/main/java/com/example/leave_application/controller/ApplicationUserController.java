@@ -1,9 +1,6 @@
 package com.example.leave_application.controller;
 
-import com.example.leave_application.payload.ApiResponse;
-import com.example.leave_application.payload.ApplicationUserDTO;
-import com.example.leave_application.payload.LeaveApplicationDTO;
-import com.example.leave_application.payload.LeaveApplicationFilterDTO;
+import com.example.leave_application.payload.*;
 import com.example.leave_application.service.ApplicationUserService;
 import com.example.leave_application.service.LeaveApplicationService;
 import lombok.AllArgsConstructor;
@@ -79,4 +76,11 @@ public class ApplicationUserController {
         List<LeaveApplicationDTO> showFilter = this.leaveApplicationService.showAllLeaveByFilter(leaveApplicationFilterDTO, userId);
         return ResponseEntity.ok(showFilter);
     }
+
+    @PreAuthorize("hasRole('NORMAL')")
+    @GetMapping ("/showLeaveBalance/{userId}/{year}")
+    public ResponseEntity<List<LeaveBalanceDTO>> showLeaveBalance(@PathVariable Integer userId, @PathVariable Integer year){
+        return ResponseEntity.ok(leaveApplicationService.showLeaveBalance(userId,year));
+    }
+
 }
