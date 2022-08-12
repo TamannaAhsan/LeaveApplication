@@ -1,6 +1,7 @@
 package com.example.leave_application.payload;
 
 import com.example.leave_application.entity.ApplicationUser;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

@@ -96,7 +96,4 @@ public class AdminController {
         ApplicationUserDTO applicationUserDTO1 = this.applicationUserService.createManagerUser(applicationUserDTO,managerId);
         return new ResponseEntity(applicationUserDTO1,HttpStatus.CREATED);
     }
-
-
-
 }
